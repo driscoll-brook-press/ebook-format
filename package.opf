@@ -9,13 +9,13 @@
     <dc:publisher>{{ site.data.book.publisher.name }}</dc:publisher>
     <dc:date opf:event='publication'>{{ site.data.book.date | date_to_xmlschema }}</dc:date>
     <dc:description>{{ site.data.book.description }}</dc:description>
-    {% for author in site.data.book.author %}
+    {% for author in site.data.book.authors %}
     <dc:creator opf:role='aut' opf:file-as='{{ author.sort }}'>{{ author.name }}</dc:creator>
     {% endfor %}
-    {% for subject in site.data.book.subject %}
+    {% for subject in site.data.book.subjects %}
     <dc:subject>{{ subject }}</dc:subject>
     {% endfor %}
-    {% for genre in site.data.book.genre %}
+    {% for genre in site.data.book.genres %}
     <dc:genre>{{ genre }}</dc:genre>
     {% endfor %}
     {% for notice in site.data.book.copyright %}
@@ -40,11 +40,10 @@
   </spine>
   <guide>
     <references>
-      {% for page in site.html_pages %}
-      {% if page.guide %}
-      <reference href='{{ page.url }}' title='{{ page.title }}' type='{{ page.guide }}'/>
+      {% for file in site.html_pages %}
+      {% if file.guide %}
+      <reference href='{{ file.url | slugify }}' title='{{ file.title }}' type='{{ file.guide }}'/>
       {% endif %}
       {% endfor %}
     </references>
   </guide>
-</package>
