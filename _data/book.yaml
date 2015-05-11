@@ -1,0 +1,34 @@
+---
+title: XXX BOOK TITLE XXX
+slug: dale-book-template
+isbn: XXX ISBN XXX
+author:
+    name: Dale Hartley Emery
+    sort: Emery, Dale Hartley
+    url: http://DaleHartleyEmery.com/
+publisher:
+  name: Driscoll Brook Press
+  url: http://DriscollBrookPress.com/
+date: 2015 # XXX DATE XXX
+rights:
+  - © XXX YEAR XXX Dale Hartley Emery
+  - Cover design © XXX YEAR XXX Driscoll Brook Press
+  - Cover art © XXX COVER ARTIST CREDIT XXX
+defaults:
+  layout: page
+content:
+  - front-matter/cover.html
+  - front-matter/title.html
+  - front-matter/dedication.html
+  - content/introduction.html
+  - content/chapter-one.html
+  - back-matter/author.html
+  - back-matter/connect.html
+  - back-matter/books.html
+  - back-matter/publisher.html
+  - back-matter/copyright.html
+  - back-matter/preview.html
+  - images/cover.jpg
+  - stylesheets/styles.css
+  - toc.ncx
+...

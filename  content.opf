@@ -1,0 +1,25 @@
+---
+---
+<package xmlns='http://www.idpf.org/2007/opf' unique-identifier='isbn' version='2.0'>
+  <metadata xmlns:dc='http://purl.org/dc/elements/1.1/' xmlns:opf='http://www.idpf.org/2007/opf'>
+    <dc:title>{{ site.data.book.title }}</dc:title>
+    <dc:creator opf:role='aut' opf:file-as='{{ site.data.book.author.sort }}'>{{ site.data.book.author.name }}</dc:creator>
+    <dc:publisher>{{ site.data.book.publisher.name }}</dc:publisher>
+    <dc:date opf:event='publication'>{{ site.data.book.date }}</dc:date>
+    <dc:subject>{{ site.data.book.subject }}</dc:subject>
+    <dc:genre>{{ site.data.book.genre }}</dc:genre>
+    <dc:identifier id='isbn' opf:scheme='ISBN'>{{ site.data.book.isbn }}</dc:identifier>
+    <dc:language>en</dc:language>
+    <dc:description>{{ site.data.book.description }}</dc:description>
+    <dc:rights>{{site.data.book.rights }}</dc:rights>
+  </metadata>
+
+  <manifest>
+  </manifest>
+
+  <spine>
+  </spine>
+
+  <guide>
+  </guide>
+</package>
