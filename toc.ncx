@@ -1,0 +1,26 @@
+---
+layout:
+---
+<ncx version='2005-1' xmlns='http://www.daisy.org/z3986/2005/ncx/' xml:lang='en-US'>
+  <head>
+    <meta name='dtb:uid' content='{{ site.data.book.isbn }}' />
+  </head>
+  <docTitle>
+    <text>{{ site.data.book.title }}</text>
+  </docTitle>
+  {% for author in site.data.book.authors %}
+  <docAuthor>
+    <text>{{ author.name }}</text>
+  </docAuthor>
+  {% endfor %}
+  <navMap>
+    {% for html_page in site.html_pages %}
+    <navPoint id='{{ html_page.url | slugify }}' playOrder='{{ forloop.index}}'>
+      <navLabel>
+        <text>{{ html_page.title }}</text>
+      </navLabel>
+      <content src='{{ html_page.url }}'
+    </navPoint>
+    {% endfor %}
+  </navMap>
+</ncx>
