@@ -2,13 +2,14 @@
 title: Copyright Information
 guide: copyright-information
 ...
-## {{ site.data.book.title }}
+{{ assign book = site.data.book }}
+## {{ book.title }}
 
 ISBN: {{ book.isbn }}
 
-Published by [{{ site.data.book.publisher.name }}]({{ site.data.book.publisher.url }})
+Published by [{{ book.publisher.name }}]({{ book.publisher.url }})
 
-<p>{{ site.data.book.rights | join:'<br />' }}</p>
+<p>{{ book.copyright | join:'<br />' }}</p>
 
 This ebook is licensed for your personal enjoyment only.
 This ebook may not be re-sold or given away to other people.
