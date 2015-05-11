@@ -42,7 +42,7 @@
     <references>
       {% for file in site.html_pages %}
       {% if file.guide %}
-      <reference href='{{ file.url | slugify }}' title='{{ file.title }}' type='{{ file.guide }}'/>
+      <reference href='{{ file.url }}' title='{{ file.title }}' type='{{ file.guide }}'/>
       {% endif %}
       {% endfor %}
     </references>
