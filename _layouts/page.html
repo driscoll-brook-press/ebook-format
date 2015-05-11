@@ -3,7 +3,12 @@
 <html xml:lang='en' xmlns='http://www.w3.org/1999/xhtml'>
 <head>
   <title>{{ page.title }}</title>
-  <meta content='{{ page.mimetype }}; charset=utf-8' http-equiv='Content-Type' />
+  <meta content='application/xhtml+xml; charset=utf-8' http-equiv='Content-Type' />
+  {% assign steps = page.dir | remove_first: '/' |  split: '/' %}
+  {% for step in steps %}
+    {% assign path_to_root = path_to_root | append: '..' %}
+  {% endfor %}
+  {% assign path_to_root = path_to_root | remove_last: '/' %}
   <link rel='stylesheet' type='text/css'  href='{{ path_to_root }}/stylesheets/styles.css'/>
 </head>
 {% if page.style %}
