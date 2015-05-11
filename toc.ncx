@@ -2,19 +2,22 @@
 layout:
 ---
 <ncx version='2005-1' xmlns='http://www.daisy.org/z3986/2005/ncx/' xml:lang='en-US'>
+  {% assign book = site.data.book %}
   <head>
-    <meta name='dtb:uid' content='{{ site.data.book.isbn }}' />
+    <meta name='dtb:uid' content='{{ book.isbn }}' />
   </head>
   <docTitle>
-    <text>{{ site.data.book.title }}</text>
+    <text>{{ book.title }}</text>
   </docTitle>
-  {% for author in site.data.book.authors %}
+  {% for author in book.authors %}
   <docAuthor>
     <text>{{ author.name }}</text>
   </docAuthor>
   {% endfor %}
   <navMap>
-    {% for html_page in site.html_pages %}
+    {% for file in book.spine %}
+    {% assign absolute_url = file | prepend: '/' %}
+    {% assign html_page = site.pages | where: 'url', absolute_url | first %}
     <navPoint id='{{ html_page.url | slugify }}' playOrder='{{ forloop.index}}'>
       <navLabel>
         <text>{{ html_page.title }}</text>

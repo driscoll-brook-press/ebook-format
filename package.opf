@@ -2,32 +2,33 @@
 layout:
 ---
 <package xmlns='http://www.idpf.org/2007/opf' unique-identifier='isbn' version='2.0'>
+  {% assign book = site.data.book %}
   <metadata xmlns:dc='http://purl.org/dc/elements/1.1/' xmlns:opf='http://www.idpf.org/2007/opf'>
     <dc:format>application/epub+zip</dc:format>
     <dc:language>en-US</dc:language>
-    <dc:title>{{ site.data.book.title }}</dc:title>
-    <dc:identifier id='isbn' opf:scheme='ISBN'>{{ site.data.book.isbn }}</dc:identifier>
-    <dc:publisher>{{ site.data.book.publisher.name }}</dc:publisher>
-    <dc:date opf:event='publication'>{{ site.data.book.date | date_to_xmlschema }}</dc:date>
-    <dc:description>{{ site.data.book.description }}</dc:description>
-    {% for author in site.data.book.authors %}
+    <dc:title>{{ book.title }}</dc:title>
+    <dc:identifier id='isbn' opf:scheme='ISBN'>{{ book.isbn }}</dc:identifier>
+    <dc:publisher>{{ book.publisher.name }}</dc:publisher>
+    <dc:date opf:event='publication'>{{ book.date }}</dc:date>
+    <dc:description>{{ book.description }}</dc:description>
+    {% for author in book.authors %}
     <dc:creator opf:role='aut' opf:file-as='{{ author.sort }}'>{{ author.name }}</dc:creator>
     {% endfor %}
-    {% for subject in site.data.book.subjects %}
+    {% for subject in book.subjects %}
     <dc:subject>{{ subject }}</dc:subject>
     {% endfor %}
-    {% for genre in site.data.book.genres %}
+    {% for genre in book.genres %}
     <dc:type>{{ genre }}</dc:type>
     {% endfor %}
-    {% for notice in site.data.book.copyright %}
+    {% for notice in book.copyright %}
     <dc:rights>{{ notice | escaped_once }}</dc:rights>
     {% endfor %}
   </metadata>
   <manifest>
-    {% for file in site.data.book.spine %}
+    {% for file in book.spine %}
     <item href='{{ file }}' id='{{ file | slugify }}' media-type='application/xhtml+xml'/>
     {% endfor %}
-    {% for type in site.data.book.files %}
+    {% for type in book.files %}
     {% for file in type.files %}
     <item href='{{ file }}' id='{{ file | slugify }}' media-type='{{ type.mimetype }}'/>
     {% endfor %}
@@ -35,14 +36,16 @@ layout:
     <item href='toc.ncx' id='ncx' media-type='application/x-dtbncx+xml'/>
   </manifest>
   <spine toc='ncx'>
-    {% for file in site.data.book.spine %}
+    {% for file in book.spine %}
     <itemref idref='{{ file | slugify }}' />
     {% endfor %}
   </spine>
   <guide>
-    {% for file in site.html_pages %}
-    {% if file.guide %}
-    <reference href='{{ file.url | remove_first: '/' }}' title='{{ file.title }}' type='{{ file.guide }}'/>
+    {% for file in book.spine %}
+    {% assign absolute_url = file | prepend: '/' %}
+    {% assign html_page = site.html_pages | where: 'url', absolute_url | first %}
+    {% if html_page.guide %}
+    <reference href='{{ file }}' title='{{ html_page.title }}' type='{{ html_page.guide }}'/>
     {% endif %}
     {% endfor %}
   </guide>
