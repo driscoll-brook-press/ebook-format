@@ -2,37 +2,42 @@
 ---
 <package xmlns='http://www.idpf.org/2007/opf' unique-identifier='isbn' version='2.0'>
   <metadata xmlns:dc='http://purl.org/dc/elements/1.1/' xmlns:opf='http://www.idpf.org/2007/opf'>
+    <dc:format>application/epub+zip</dc:format>
+    <dc:language>en-US</dc:language>
     <dc:title>{{ site.data.book.title }}</dc:title>
     <dc:identifier id='isbn' opf:scheme='ISBN'>{{ site.data.book.isbn }}</dc:identifier>
     <dc:publisher>{{ site.data.book.publisher.name }}</dc:publisher>
     <dc:date opf:event='publication'>{{ site.data.book.date | date_to_xmlschema }}</dc:date>
     <dc:description>{{ site.data.book.description }}</dc:description>
-    <dc:creator opf:role='aut' opf:file-as='{{ site.data.book.author.sort }}'>{{ site.data.book.author.name }}</dc:creator>
-    <dc:language>en</dc:language>
-    {% for subject in site.data.book.subjects %}
+    {% for author in site.data.book.author %}
+    <dc:creator opf:role='aut' opf:file-as='{{ author.sort }}'>{{ author.name }}</dc:creator>
+    {% endfor %}
+    {% for subject in site.data.book.subject %}
     <dc:subject>{{ subject }}</dc:subject>
     {% endfor %}
-    {% for genre in site.data.book.genres %}
+    {% for genre in site.data.book.genre %}
     <dc:genre>{{ genre }}</dc:genre>
     {% endfor %}
-    {% for claim in site.data.book.rights %}
-    <dc:rights>{{ claim }}</dc:rights>
+    {% for notice in site.data.book.copyright %}
+    <dc:rights>{{ notice | escaped_once }}</dc:rights>
     {% endfor %}
   </metadata>
-
   <manifest>
-    {% for page in site.pages %}
-    <item href='{{ page.url }}' id='{{ page.url | slugify }}' />
+    {% for file in site.data.book.content %}
+    <item href='{{ file }}' id='{{ file | slugify }}' media-type='application/xhtml+xml'/>
     {% endfor %}
-    <item href='toc.nxc' id='ncx' />
+    {% for type in site.data.book.files %}
+    {% for file in type.files %}
+    <item href='{{ file }}' id='{{ file | slugify }}' media-type='{{ type.mimetype }}'/>
+    {% endfor %}
+    {% endfor %}
+    <item href='toc.nxc' id='ncx' media-type='application/x-dtbncx+xml'/>
   </manifest>
-
   <spine>
-    {% for page in site.html_pages %}
-    <itemref idref='{{ page.url | slugify }}' />
+    {% for file in site.data.book.spine %}
+    <itemref idref='{{ file | slugify }}' />
     {% endfor %}
   </spine>
-
   <guide>
     <references>
       {% for page in site.html_pages %}
