@@ -1,16 +1,23 @@
 ---
 title: About the Author
 style: about
+stories:
+-
+  title: Carrion Road
+  slug: carrion-road
+-
+  title: Yantriel's Privy
+  slug: yantriels-privy
+-
+  title: The Last Whiskey Bacon Cheddar Burger at Saint Florian's Abbey
+  slug: saint-florians-abbey
 ...
-
+{% assign author = site.data.author %}
 Dale Hartley Emery
 writes fiction in a variety of genres,
 including fantasy, science fiction, and mystery.
 His short stories include
-[CarrionRoad](http://DriscollBrookPress.com/title/carrion-road/),
-[Yantriel's Privy](http://DriscollBrookPress.com/title/yantriels-privy/),
-and
-[The Last Whiskey Bacon Cheddar Burger at Saint Florian’s Abbey](http://DriscollBrookPress/title/saint-florians-abbey/).
+{% for story in page.stories %}{% unless forloop.first %}, {% endunless %}{% if forloop.last %}and {% endif %}*[{{ story.title }}](http://DriscollBrookPress.com/title/{{ story.slug }}/)*{% endfor %}
 
 Dale has worked as a failed shoemaker,
 reluctant dairy farmer,
@@ -25,4 +32,4 @@ Colleagues in Dale’s industry once created a special award for him for being r
 
 Dale lives in California with his wife.
 
-Visit [DaleHartleyEmery.com](http://DaleHartleyEmery.com/) to learn more.
+Visit [{{ author.site }}]({{ author.url }}) to learn more.

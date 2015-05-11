@@ -1,6 +1,3 @@
-exclude:
-  - Gemfile
-  - Gemfile.lock
 defaults:
   -
     scope:

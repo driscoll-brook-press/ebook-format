@@ -1,0 +1,18 @@
+spine:
+  - publication/cover.html
+  - publication/title.html
+# XXX CONTENT XXX
+  - author/about.html
+  - author/connect.html
+  - author/books.html
+  - publisher/about.html
+  - publication/copyright.html
+references:
+-
+  mimetype: image/jpeg
+  files:
+    - publication/cover.jpg
+-
+  mimetype: text/css
+  files:
+    - stylesheets/styles.css

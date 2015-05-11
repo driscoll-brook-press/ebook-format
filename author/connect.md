@@ -2,8 +2,8 @@
 title: Connect with the Author
 style: connect
 ...
-
-[DaleHartleyEmery.com](http://DaleHartleyEmery.com/)
+{% assign author = site.data.author %}
+[{{ author.site }}]({{ author.url }})
 
 [Facebook](http://facebook.com/DaleHartleyEmery)
 
