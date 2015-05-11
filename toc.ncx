@@ -19,7 +19,7 @@ layout:
       <navLabel>
         <text>{{ html_page.title }}</text>
       </navLabel>
-      <content src='{{ html_page.url }}'
+      <content src='{{ html_page.url | remove_first: '/' }}' />
     </navPoint>
     {% endfor %}
   </navMap>
