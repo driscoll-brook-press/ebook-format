@@ -33,7 +33,4 @@ content:
   - back-matter/publisher.html
   - back-matter/copyright.html
   - back-matter/preview.html
-  - images/cover.jpg
-  - stylesheets/styles.css
-  - toc.ncx
 ...

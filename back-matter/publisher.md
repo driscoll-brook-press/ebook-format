@@ -3,7 +3,7 @@ title: About the Publisher
 style: about
 ...
 
-<span class='capitalized'>Driscoll Brook Press</span>
+Driscoll Brook Press
 publishes superb fiction
 in a variety of genres.
 

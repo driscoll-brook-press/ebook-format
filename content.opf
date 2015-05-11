@@ -9,21 +9,37 @@
     <dc:description>{{ site.data.book.description }}</dc:description>
     <dc:creator opf:role='aut' opf:file-as='{{ site.data.book.author.sort }}'>{{ site.data.book.author.name }}</dc:creator>
     <dc:language>en</dc:language>
-    {% for subject in site.data.book.subjects %}<dc:subject>{{ subject }}</dc:subject>{% endfor %}
-    {% for genre in site.data.book.genres %}<dc:genre>{{ genre }}</dc:genre>{% endfor %}
-    {% for claim in site.data.book.rights %}<dc:rights>{{ claim }}</dc:rights>{% endfor %}
+    {% for subject in site.data.book.subjects %}
+    <dc:subject>{{ subject }}</dc:subject>
+    {% endfor %}
+    {% for genre in site.data.book.genres %}
+    <dc:genre>{{ genre }}</dc:genre>
+    {% endfor %}
+    {% for claim in site.data.book.rights %}
+    <dc:rights>{{ claim }}</dc:rights>
+    {% endfor %}
   </metadata>
 
   <manifest>
-    <!-- TODO: Every book.content file -->
-    <!-- TODO: toc.ncx -->
+    {% for page in site.pages %}
+    <item href='{{ page.url }}' id='{{ page.url | slugify }}' />
+    {% endfor %}
+    <item href='toc.nxc' id='ncx' />
   </manifest>
 
   <spine>
-    <!-- TODO: Every book.content HTML file in book order -->
+    {% for page in site.html_pages %}
+    <itemref idref='{{ page.url | slugify }}' />
+    {% endfor %}
   </spine>
 
   <guide>
-    <!-- TODO: Same files as spine? -->
+    <references>
+      {% for page in site.html_pages %}
+      {% if page.guide %}
+      <reference href='{{ page.url }}' title='{{ page.title }}' type='{{ page.guide }}'/>
+      {% endif %}
+      {% endfor %}
+    </references>
   </guide>
 </package>

@@ -2,13 +2,13 @@
 title: Copyright Information
 guide: copyright-information
 ...
-## {{ book.title }}
+## {{ site.data.book.title }}
 
 ISBN: {{ book.isbn }}
 
-Published by [Driscoll Brook Press](http://DriscollBrookPress.com/)
+Published by [{{ site.data.book.publisher.name }}]({{ site.data.book.publisher.url }})
 
-<p>{{ book.rights | join:'<br />' }}</p>
+<p>{{ site.data.book.rights | join:'<br />' }}</p>
 
 This ebook is licensed for your personal enjoyment only.
 This ebook may not be re-sold or given away to other people.

@@ -4,14 +4,14 @@ guide: title-page
 add_header: no
 ...
 
-# {{ book.title }}
+# {{ site.data.book.title }}
 
 ## Dale Hartley Emery
 
 ### Driscoll Brook Press
 
-ISBN: {{ book.isbn }}
+ISBN: {{ site.data.book.isbn }}
 
-{{ book.rights.first }}
+{{ site.data.book.rights.first }}
 
 [Full Copyright Information]({{ path_to_root }}/back-matter/copyright.html)

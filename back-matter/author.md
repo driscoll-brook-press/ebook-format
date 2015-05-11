@@ -3,7 +3,7 @@ title: About the Author
 style: about
 ...
 
-<span class='capitalized'>Dale Hartley Emery</span>
+Dale Hartley Emery
 writes fiction in a variety of genres,
 including fantasy, science fiction, and mystery.
 His short stories include
