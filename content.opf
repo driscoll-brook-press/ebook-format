@@ -5,37 +5,22 @@
     <dc:title>{{ site.data.book.title }}</dc:title>
     <dc:identifier id='isbn' opf:scheme='ISBN'>{{ site.data.book.isbn }}</dc:identifier>
     <dc:publisher>{{ site.data.book.publisher.name }}</dc:publisher>
-
-    <!-- TODO: May need to be formatted -->
-    <dc:date opf:event='publication'>{{ site.data.book.date }}</dc:date>
-
-    <!-- TODO: May need to escape -->
+    <dc:date opf:event='publication'>{{ site.data.book.date | date_to_xmlschema }}</dc:date>
     <dc:description>{{ site.data.book.description }}</dc:description>
-
-    <!-- TODO: Make optional, defaulting to en -->
-    <dc:language>en</dc:language>
-
-    <!-- TODO: Zero or more -->
     <dc:creator opf:role='aut' opf:file-as='{{ site.data.book.author.sort }}'>{{ site.data.book.author.name }}</dc:creator>
-
-    <!-- TODO: Zero or more -->
-    <dc:subject>{{ site.data.book.subject }}</dc:subject>
-
-    <!-- TODO: Zero or more -->
-    <dc:genre>{{ site.data.book.genre }}</dc:genre>
-
-    <!-- TODO: Zero or more -->
-    <dc:rights>{{ site.data.book.rights }}</dc:rights>
-
-    <!-- TODO: any other metadata elements I omitted? -->
+    <dc:language>en</dc:language>
+    {% for subject in site.data.book.subjects %}<dc:subject>{{ subject }}</dc:subject>{% endfor %}
+    {% for genre in site.data.book.genres %}<dc:genre>{{ genre }}</dc:genre>{% endfor %}
+    {% for claim in site.data.book.rights %}<dc:rights>{{ claim }}</dc:rights>{% endfor %}
   </metadata>
 
   <manifest>
-    <!-- TODO: All files (except mimetype and META-INF?) -->
+    <!-- TODO: Every book.content file -->
+    <!-- TODO: toc.ncx -->
   </manifest>
 
   <spine>
-    <!-- TODO: All spine files in book order -->
+    <!-- TODO: Every book.content HTML file in book order -->
   </spine>
 
   <guide>

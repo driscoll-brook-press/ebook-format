@@ -2,14 +2,19 @@
 title: XXX BOOK TITLE XXX
 slug: dale-book-template
 isbn: XXX ISBN XXX
+genres:
+  - Fantasy
+  - Time Travel
+subject:
+  - Fiction
 author:
-    name: Dale Hartley Emery
-    sort: Emery, Dale Hartley
-    url: http://DaleHartleyEmery.com/
+  name: Dale Hartley Emery
+  sort: Emery, Dale Hartley
+  url: http://DaleHartleyEmery.com/
 publisher:
   name: Driscoll Brook Press
   url: http://DriscollBrookPress.com/
-date: 2015 # XXX DATE XXX
+date: 2015/01/01 # XXX DATE XXX
 rights:
   - © XXX YEAR XXX Dale Hartley Emery
   - Cover design © XXX YEAR XXX Driscoll Brook Press
