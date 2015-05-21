@@ -1,11 +1,10 @@
 ---
 title: Contents
-toc: false
 ---
 {% for file in site.data.interior.spine %}
 {% assign absolute_url = file | prepend: '/' %}
 {% assign page = site.html_pages | where: 'url', absolute_url | first %}
-{% if page.toc %}
-<p class='{{ page.toc }}'><a href='..{{ page.url }}'>{{ page.title }}</a></p>
+{% if page.style %}
+<p class='toc-{{ page.style }}'><a href='..{{ page.url }}'>{{ page.title }}</a></p>
 {% endif %}
 {% endfor %}

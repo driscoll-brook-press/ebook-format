@@ -2,7 +2,6 @@
 title: Title Page
 guide: title-page
 add_header: no
-toc: false
 ---
 {% assign publication = site.data.publication %}
 {% assign author = site.data.author %}

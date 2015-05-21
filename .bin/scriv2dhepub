@@ -135,62 +135,18 @@ class CommandLine
   end
 end
 
-class Document
-  def initialize(parent:, binder:)
-    @parent = parent
-    @binder = binder
-  end
-
-  def children(parent:)
-    parent.children.flat_map do |item|
-      items = []
-      items << path(item) if item.include_in_compile?
-      items + children(parent: item)
-    end
-  end
-
-  def depth(item)
-    item.equal?(@binder) ? -1 : depth(item.parent) + 1
-  end
-
-  def doc_id(item)
-    "#{item.id}"
-  end
-
-  def path(item)
-    "#{trail(item)}.html"
-  end
-
-  def properties(item)
-    {
-      'title' => item.title,
-      'type' => item.type,
-      'doc_id' => doc_id(item),
-      'depth' => depth(item),
-    }.merge item.custom_metadata
-  end
-
-  def slug(item)
-    # Convert each sequence of whitespace characters to a single hyphen.
-    # Delete each non-alphanumeric character (except hyphen).
-    # Convert the whole thing to lower case.
-    item.title.gsub(/\s+/, '-').gsub(/[^[:alnum:]-]/, '').downcase
-  end
-
-  def trail(item)
-    depth(item) == 0 ? Pathname('content') : trail(item.parent) / slug(item)
-  end
-end
-
-class Book
-  attr_reader :publication, :author, :spine
-
+class Writer
   def initialize(project)
     @project = project
-    @publication = publication
-    @author = author
-    @spine = children(parent: project.binder.children.first)
   end
+
+  def write_to(dir)
+    dir.mkpath
+    write_book_to(dir)
+    write_files_to(dir)
+  end
+
+  private
 
   def author
     sort = []
@@ -203,49 +159,77 @@ class Book
     { 'name' => name, 'sort' => sort.join(', ')}
   end
 
+  def book
+    book = OpenStruct.new
+    book.publication = publication
+    book.author = author
+    book.spine = children(parent: @project.binder.children.first).map{ |file|
+        path = Pathname.new(file)
+        dir = path.dirname
+        basename = path.basename('.*')
+        "#{dir / basename}.html"
+        }
+    book
+  end
+
+  def children(parent:)
+    parent.children.flat_map do |item|
+      items = []
+      items << path(item) if item.include_in_compile?
+      items + children(parent: item)
+    end
+  end
+
   def publication
     {
       'title' => @project.title,
     }
   end
-end
-
-class Writer
-  def initialize(book:, dir:, project:)
-    @book = book
-    @dir = dir
-    @project = project
+  def depth(item)
+    item.equal?(@project.binder) ? -1 : depth(item.parent) + 1
   end
 
-  def write
-    @dir.mkpath
-    write_book
-    write_markdown_files
+  def doc_id(item)
+    "#{item.id}"
   end
 
-  private
-
-  def write_book
-    data_dir = @dir / '_data'
-    data_dir.mkpath
-    publication_file = data_dir / '_publication.yaml'
-    publication_file.write(@book.publication.to_yaml)
-    author_file = data_dir / '_author.yaml'
-    author_file.write(@book.author.to_yaml)
-    spine_file = data_dir / '_spine.yaml'
-    spine_file.write(@book.spine.to_yaml)
+  def path(item)
+    "#{trail(item)}.md"
   end
 
-  def write_markdown_files
-    @project.binder.children.first.children.each do |item|
-      write_file(dir: @dir, item: item)
-    end
+  def properties(item)
+    {
+      'title' => item.title,
+      'type' => item.type,
+      'doc_id' => doc_id(item),
+      'depth' => depth(item),
+    }.merge item.custom_metadata
+
+  end
+
+  def slug(item)
+    # Convert each sequence of whitespace characters to a single hyphen.
+    # Delete each non-alphanumeric character (except hyphen).
+    # Convert the whole thing to lower case.
+    item.title.gsub(/\s+/, '-').gsub(/[^[:alnum:]-]/, '').downcase
   end
 
   def to_markdown(item)
     rtf_path = item.file_path
     return nil unless rtf_path.file?
     %x{ textutil -convert html -excludedelements '(span)' -strip -stdout #{rtf_path} | pandoc -f html -t markdown }
+  end
+
+  def trail(item)
+    depth(item) == 0 ? Pathname('content') : trail(item.parent) / slug(item)
+  end
+
+  def write_book_to(dir)
+    it = book
+    data_dir = dir / '_data'
+    data_dir.mkpath
+    spine_file = data_dir / '_spine.yaml'
+    spine_file.write(it.spine.to_yaml)
   end
 
   def write_file(dir:, item:)
@@ -259,6 +243,12 @@ class Writer
     file.parent.mkpath
     file.write(content.string)
   end
+
+  def write_files_to(dir)
+    @project.binder.children.first.children.each do |item|
+      write_file(dir: dir, item: item)
+    end
+  end
 end
 
 options = CommandLine.parse
@@ -267,6 +257,6 @@ scrivener_file = options.scrivener_file
 book_dir = options.book_dir
 
 project = Scrivx.project(scrivener_file)
-book = Book.new(project)
-writer = Writer.new(book: book, dir: book_dir, project: project)
-writer.write
+
+writer = Writer.new(project)
+writer.write_to book_dir

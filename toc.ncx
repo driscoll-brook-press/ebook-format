@@ -6,7 +6,7 @@ layout:
   {% assign author = site.data.author %}
   {% assign interior = site.data.interior %}
   <head>
-    <meta name='dtb:uid' content='{{ book.isbn }}' />
+    <meta name='dtb:uid' content='{{ publication.isbn }}' />
   </head>
   <docTitle>
     <text>{{ publication.title }}</text>
