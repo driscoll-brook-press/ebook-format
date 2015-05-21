@@ -1,6 +1,7 @@
 spine:
   - publication/cover.html
   - publication/title.html
+  - publication/toc.html
 # XXX CONTENT XXX
   - author/about.html
   - author/connect.html

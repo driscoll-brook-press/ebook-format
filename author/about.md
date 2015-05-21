@@ -1,6 +1,7 @@
 ---
 title: About the Author
 style: about
+toc: back-matter
 stories:
 -
   title: Carrion Road

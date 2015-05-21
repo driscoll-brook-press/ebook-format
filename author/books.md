@@ -1,6 +1,7 @@
 ---
 title: Books by the Author
 style: books
+toc: back-matter
 categories:
 -
   name: Fantasy
