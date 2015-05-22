@@ -1,0 +1,8 @@
+{% assign absolute_url = include.path | prepend: '/' %}
+{% assign html_page = site.pages | where: 'url', absolute_url | first %}
+<navPoint id='{{ html_page.url | slugify }}' playOrder='{{ include.play_order }}'>
+  <navLabel>
+    <text>{{ html_page.title }}</text>
+  </navLabel>
+  <content src='{{ html_page.url | remove_first: '/' }}' />
+</navPoint>

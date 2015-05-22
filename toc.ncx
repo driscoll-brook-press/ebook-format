@@ -4,6 +4,7 @@ layout:
 <ncx version='2005-1' xmlns='http://www.daisy.org/z3986/2005/ncx/' xml:lang='en-US'>
   {% assign publication = site.data.publication %}
   {% assign author = site.data.author %}
+  {% assign manuscript = site.data.content %}
   <head>
     <meta name='dtb:uid' content='{{ publication.isbn }}' />
   </head>
@@ -14,22 +15,10 @@ layout:
     <text>{{ author.name }}</text>
   </docAuthor>
   <navMap>
-    {% comment %}
-    - Cover (if standard edition)
-    - Front matter
-    - Content
-    - Back matter
-    - Resources
-    {% endcomment %}
-    {% for file in interior.spine %}
-    {% assign absolute_url = file | prepend: '/' %}
-    {% assign html_page = site.pages | where: 'url', absolute_url | first %}
-    <navPoint id='{{ html_page.url | slugify }}' playOrder='{{ forloop.index}}'>
-      <navLabel>
-        <text>{{ html_page.title }}</text>
-      </navLabel>
-      <content src='{{ html_page.url | remove_first: '/' }}' />
-    </navPoint>
-    {% endfor %}
+    {% assign play_order = 1 %}
+    {% if site.include-cover %}{% include ncx-entry.xml path=publication.cover.page play_order=play_order %}{% assign play_order = play_order | plus: 1 %}{% endif %}
+    {% for path in publication.front-matter %}{% include ncx-entry.xml path=path play_order=play_order %}{% assign play_order = play_order | plus: 1 %}{% endfor %}
+    {% for path in manuscript %}{% include ncx-entry.xml path=path play_order=play_order %}{% assign play_order = play_order | plus: 1 %}{% endfor %}
+    {% for path in publication.back-matter %}{% include ncx-entry.xml path=path play_order=play_order %}{% assign play_order = play_order | plus: 1 %}{% endfor %}
   </navMap>
 </ncx>

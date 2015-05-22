@@ -1,0 +1,3 @@
+{% assign absolute_url = include.path | prepend: '/' %}
+{% assign page = site.html_pages | where: 'url', absolute_url | first %}
+{% if page.style %}<p class='toc-{{ page.style }}'><a href='..{{ page.url }}'>{{ page.title }}</a></p>{% endif %}

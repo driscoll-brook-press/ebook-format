@@ -1,3 +1,2 @@
-destination: _site/kindle
 include-cover: false
 exclude: [cover]

@@ -1,1 +1,1 @@
-<itemref idref='{{ include.file | slugify }}' />
+<itemref idref='{{ include.path | slugify }}' />

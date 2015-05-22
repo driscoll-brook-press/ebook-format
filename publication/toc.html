@@ -1,10 +1,9 @@
 ---
 title: Contents
 ---
-{% for file in site.data.interior.spine %}
-{% assign absolute_url = file | prepend: '/' %}
-{% assign page = site.html_pages | where: 'url', absolute_url | first %}
-{% if page.style %}
-<p class='toc-{{ page.style }}'><a href='..{{ page.url }}'>{{ page.title }}</a></p>
-{% endif %}
-{% endfor %}
+{% assign publication = site.data.publication %}
+{% assign manuscript = site.data.content %}
+{% if site.include-cover %}{% include toc-entry.html path=publication.cover.page %}{% endif %}
+{% for path in publication.front-matter %}{% include toc-entry.html path=path %}{% endfor %}
+{% for path in manuscript %}{% include toc-entry.html path=path %}{% endfor %}
+{% for path in publication.back-matter %}{% include toc-entry.html path=path %}{% endfor %}

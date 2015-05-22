@@ -6,3 +6,4 @@ defaults:
     values:
       layout: 'page'
       manifest: true
+exclude: [Rakefile]

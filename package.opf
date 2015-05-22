@@ -21,14 +21,14 @@ manifest: false
     {% for notice in publication.copyright %}<dc:rights>{{ notice | escaped_once }}</dc:rights>{% endfor %}
   </metadata>
   <manifest>
-    {% for page in site.pages %}{% if page.manifest %}{% assign path = page.url  %}{% include manifest-entry.xml path=path %}{% endif %}{% endfor %}
+    {% for page in site.pages %}{% if page.manifest %}{% assign path = page.url %}{% include manifest-entry.xml path=path %}{% endif %}{% endfor %}
     {% for file in site.static_files %}{% include manifest-entry.xml path=file.path %}{% endfor %}
   </manifest>
-  <spine toc='ncx'>
-    {% if site.include-cover %}{% include spine-entry.xml file=publication.cover.page %}{% endif %}
-    {% for file in publication.front-matter %}{% include spine-entry.xml file=file %}{% endfor %}
-    {% for file in manuscript %}{% include spine-entry.xml file=file %}{% endfor %}
-    {% for file in publication.back-matter %}{% include spine-entry.xml file=file %}{% endfor %}
+  <spine toc='{{ 'toc.ncx' | slugify }}'>
+    {% if site.include-cover %}{% include spine-entry.xml path=publication.cover.page %}{% endif %}
+    {% for path in publication.front-matter %}{% include spine-entry.xml path=path %}{% endfor %}
+    {% for path in manuscript %}{% include spine-entry.xml path=path %}{% endfor %}
+    {% for path in publication.back-matter %}{% include spine-entry.xml path=path %}{% endfor %}
   </spine>
   <guide>
     {% for page in site.html_pages %}{% include guide-entry.xml page=page %}{% endfor %}
