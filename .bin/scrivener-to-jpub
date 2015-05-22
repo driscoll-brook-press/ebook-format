@@ -147,7 +147,7 @@ class Listing
 
   def write_to(metadata_path:, content_dir:)
     metadata_path.mkpath
-    listing_file = metadata_path / 'contents.yaml'
+    listing_file = metadata_path / 'content.yaml'
     content = StringIO.new
     @paths.each { |path| content.puts "- #{content_dir / path}" }
     listing_file.write(content.string)
