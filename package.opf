@@ -1,11 +1,12 @@
 ---
 layout:
+manifest: false
 ---
 <package xmlns='http://www.idpf.org/2007/opf' unique-identifier='isbn' version='2.0'>
   {% assign publication = site.data.publication %}
   {% assign author = site.data.author %}
   {% assign publisher = site.data.publisher %}
-  {% assign interior = site.data.interior %}
+  {% assign manuscript = site.data.content %}
   <metadata xmlns:dc='http://purl.org/dc/elements/1.1/' xmlns:opf='http://www.idpf.org/2007/opf'>
     <dc:format>application/epub+zip</dc:format>
     <dc:language>en-US</dc:language>
@@ -15,39 +16,21 @@ layout:
     <dc:date opf:event='publication'>{{ publication.date }}</dc:date>
     <dc:description>{{ publication.description }}</dc:description>
     <dc:creator opf:role='aut' opf:file-as='{{ author.sort }}'>{{ author.name }}</dc:creator>
-    {% for subject in publication.subjects %}
-    <dc:subject>{{ subject }}</dc:subject>
-    {% endfor %}
-    {% for genre in publication.genres %}
-    <dc:type>{{ genre }}</dc:type>
-    {% endfor %}
-    {% for notice in publication.copyright %}
-    <dc:rights>{{ notice | escaped_once }}</dc:rights>
-    {% endfor %}
+    {% for subject in publication.subjects %}<dc:subject>{{ subject }}</dc:subject>{% endfor %}
+    {% for genre in publication.genres %}<dc:type>{{ genre }}</dc:type>{% endfor %}
+    {% for notice in publication.copyright %}<dc:rights>{{ notice | escaped_once }}</dc:rights>{% endfor %}
   </metadata>
   <manifest>
-    {% for file in interior.spine %}
-    <item href='{{ file }}' id='{{ file | slugify }}' media-type='application/xhtml+xml'/>
-    {% endfor %}
-    {% for type in interior.references %}
-    {% for file in type.files %}
-    <item href='{{ file }}' id='{{ file | slugify }}' media-type='{{ type.mimetype }}'/>
-    {% endfor %}
-    {% endfor %}
-    <item href='toc.ncx' id='ncx' media-type='application/x-dtbncx+xml'/>
+    {% for page in site.pages %}{% if page.manifest %}{% assign path = page.url  %}{% include manifest-entry.xml path=path %}{% endif %}{% endfor %}
+    {% for file in site.static_files %}{% include manifest-entry.xml path=file.path %}{% endfor %}
   </manifest>
   <spine toc='ncx'>
-    {% for file in interior.spine %}
-    <itemref idref='{{ file | slugify }}' />
-    {% endfor %}
+    {% if site.include-cover %}{% include spine-entry.xml file=publication.cover.page %}{% endif %}
+    {% for file in publication.front-matter %}{% include spine-entry.xml file=file %}{% endfor %}
+    {% for file in manuscript %}{% include spine-entry.xml file=file %}{% endfor %}
+    {% for file in publication.back-matter %}{% include spine-entry.xml file=file %}{% endfor %}
   </spine>
   <guide>
-    {% for file in interior.spine %}
-    {% assign absolute_url = file | prepend: '/' %}
-    {% assign html_page = site.html_pages | where: 'url', absolute_url | first %}
-    {% if html_page.guide %}
-    <reference href='{{ file }}' title='{{ html_page.title }}' type='{{ html_page.guide }}'/>
-    {% endif %}
-    {% endfor %}
+    {% for page in site.html_pages %}{% include guide-entry.xml page=page %}{% endfor %}
   </guide>
 </package>

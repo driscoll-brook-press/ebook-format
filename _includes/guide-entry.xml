@@ -1,0 +1,1 @@
+{% if include.page.guide %}<reference href='{{ include.page.url | remove_first: '/' }}' title='{{ include.page.title }}' type='{{ include.page.guide }}'/> {% endif %}

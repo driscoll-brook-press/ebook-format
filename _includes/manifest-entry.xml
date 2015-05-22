@@ -1,0 +1,3 @@
+{% assign extension = include.path | split: '.' | last %}
+{% assign mimetype = site.data.mimetypes | where: 'extension', extension | first | map: 'mimetype' %}
+<item href='{{ include.path | remove_first: '/' }}' id='{{ include.path | slugify }}' media-type='{{ mimetype }}'/>

@@ -1,0 +1,1 @@
+<itemref idref='{{ include.file | slugify }}' />

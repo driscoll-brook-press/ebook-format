@@ -4,7 +4,6 @@ layout:
 <ncx version='2005-1' xmlns='http://www.daisy.org/z3986/2005/ncx/' xml:lang='en-US'>
   {% assign publication = site.data.publication %}
   {% assign author = site.data.author %}
-  {% assign interior = site.data.interior %}
   <head>
     <meta name='dtb:uid' content='{{ publication.isbn }}' />
   </head>
@@ -15,6 +14,13 @@ layout:
     <text>{{ author.name }}</text>
   </docAuthor>
   <navMap>
+    {% comment %}
+    - Cover (if standard edition)
+    - Front matter
+    - Content
+    - Back matter
+    - Resources
+    {% endcomment %}
     {% for file in interior.spine %}
     {% assign absolute_url = file | prepend: '/' %}
     {% assign html_page = site.pages | where: 'url', absolute_url | first %}

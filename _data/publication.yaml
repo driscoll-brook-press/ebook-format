@@ -16,3 +16,18 @@ copyright:
   cover_art:
     material: Cover art
     owner: XXX COVER ARTIST CREDIT XXX
+cover:
+  page:  cover/cover.html
+  image: cover/cover.jpg
+front-matter:
+  - publication/title.html
+  - publication/toc.html
+back-matter:
+  - author/about.html
+  - author/connect.html
+  - author/books.html
+  - publisher/about.html
+  - publication/copyright.html
+resources:
+  - stylesheets/styles.css
+  - toc.ncx
