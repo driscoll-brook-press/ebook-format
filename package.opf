@@ -21,7 +21,7 @@ manifest: false
     {% for notice in publication.copyright %}<dc:rights>{{ notice | escaped_once }}</dc:rights>{% endfor %}
   </metadata>
   <manifest>
-    {% for page in site.pages %}{% if page.manifest %}{% assign path = page.url %}{% include manifest-entry.xml path=path %}{% endif %}{% endfor %}
+    {% for page in site.pages %}{% if page.manifest %}{% include manifest-entry.xml path=page.url %}{% endif %}{% endfor %}
     {% for file in site.static_files %}{% include manifest-entry.xml path=file.path %}{% endfor %}
   </manifest>
   <spine toc='{{ 'toc.ncx' | slugify }}'>
