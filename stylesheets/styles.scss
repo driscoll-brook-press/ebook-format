@@ -64,6 +64,17 @@ books a { font-style: italic; }
   text-align: center;
 }
 
+.books h2 { margin: $leading 0 0 0; }
+
+.toc {
+  p { font-style: italic; }
+  .toc-chapter {
+    font-style: normal;
+    font-variant: small-caps;
+    font-weight: bold;
+  }
+}
+
 .cover {
   // Cover page fills the entire viewport
   margin: 0;

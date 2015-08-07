@@ -18,7 +18,9 @@ manifest: false
     <dc:creator opf:role='aut' opf:file-as='{{ author.sort }}'>{{ author.name }}</dc:creator>
     {% for subject in publication.subjects %}<dc:subject>{{ subject }}</dc:subject>{% endfor %}
     {% for genre in publication.genres %}<dc:type>{{ genre }}</dc:type>{% endfor %}
-    {% for notice in publication.copyright %}<dc:rights>{{ notice | escaped_once }}</dc:rights>{% endfor %}
+    {% for notice in publication.copyright %}
+      <dc:rights>{{ notice[1].material}} © {{ notice[1].date }} {{ notice[1].owner }}</dc:rights>
+    {% endfor %}
   </metadata>
   <manifest>
     {% for page in site.pages %}{% if page.manifest %}{% include manifest-entry.xml path=page.url %}{% endif %}{% endfor %}

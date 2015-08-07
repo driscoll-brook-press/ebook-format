@@ -3,39 +3,32 @@ title: Books by the Author
 style: books
 toc: back-matter
 categories:
--
-  name: Fantasy
+- name: Fiction
   books:
-  -
-    title: Carrion Road
+  - title: The Donation
+    slug: donation
+  - title: Inventory
+    slug: inventory
+- name: Fantasy
+  books:
+  - title: Carrion Road
     slug: carrion-road
-  -
-    title: Funhouse
+  - title: Funhouse
     slug: funhouse
-  -
-    title: Refund
+  - title: Refund
     slug: refund
-  -
-    title: Tailor's Tears
+  - title: Tailor's Tears
     slug: tailors-tears
-  -
-    title: Yantriels Privy
-    slug: yantriels-privy
--
-  name: Crime Fiction
-  books:
-  -
-    title: Double or Nothing
-    slug: double-or-nothing
-  -
-    title: The Last Whiskey Bacon Cheddar Burger at Saint Florian's Abbey
-    slug: saint-florians-abbey
--
-  name: Collections
-  books:
-  -
-    title: Winding Unwinding
+  - title: Winding Unwinding (Collection)
     slug: winding-unwinding
+  - title: Yantriels Privy
+    slug: yantriels-privy
+- name: Crime Fiction
+  books:
+  - title: Double or Nothing
+    slug: double-or-nothing
+  - title: The Last Whiskey Bacon Cheddar Burger at Saint Florian's Abbey
+    slug: saint-florians-abbey
 ---
 
 {% for category in page.categories %}
