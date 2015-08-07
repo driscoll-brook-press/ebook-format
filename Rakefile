@@ -1,7 +1,7 @@
 require 'rake/clean'
 
 $build_dir = '_site'
-$epub_dir = '_epub'
+$epub_dir = '..'
 $fixed_dir = '_fixed'
 
 desc 'Build and check standard and kindle epubs'
@@ -70,6 +70,4 @@ end
 desc 'Clobber all files, then build and validate the epub file.'
 task fresh: [:clobber, :default]
 
-directory $epub_dir
-
-CLEAN.include $build_dir, $epub_dir
+CLEAN.include $build_dir, epub_file('standard'), epub_file('kindle')
